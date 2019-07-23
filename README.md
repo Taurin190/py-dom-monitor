@@ -15,7 +15,7 @@
 ## 要件の分解
 - [ ] Configから対象のURLを取得する
   - [ ] DomMonitorクラスがコンストラクタを作成
-  - [ ] staticmethodでhtmlを取得するclientを取得する
+  - [x] staticmethodでhtmlを取得するclientを取得する
   - [ ] staticmethodでdatabaseクラスを取得する
   - [ ] staticmethodで通知クラスを取得する
   - [ ] client,database,通知クラスを引数にドメインクラス取得する
