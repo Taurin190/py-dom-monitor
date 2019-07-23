@@ -13,14 +13,14 @@
 - 10回に1回変わるような特異な変更は通知を行う
 
 ## 要件の分解
-- Configから対象のURLを取得する
-  - DomMonitorクラスがコンストラクタで取得する
-  - staticmethodでhtmlを取得するclientを取得する
-  - staticmethodでdatabaseクラスを取得する
-  - staticmethodで通知クラスを取得する
-  - client,database,通知クラスを引数にドメインクラス取得する
-  - ドメインクラスを実施する
-- ドメインクラスのexec関数実施
+- [ ] Configから対象のURLを取得する
+  - [ ] DomMonitorクラスがコンストラクタを作成
+  - [ ] staticmethodでhtmlを取得するclientを取得する
+  - [ ] staticmethodでdatabaseクラスを取得する
+  - [ ] staticmethodで通知クラスを取得する
+  - [ ] client,database,通知クラスを引数にドメインクラス取得する
+  - [ ] 対象のURLを取得する
+- ドメインクラスを実施する
   - データベースに接続
   - 今回で何回目のアクセスか取り出す
   - データベースより前回の結果を取り出す
