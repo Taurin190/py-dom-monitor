@@ -1,4 +1,5 @@
-from client.client import Client
+from client.requests_client import RequestClient
+from client.selenium_client import SeleniumClient
 
 
 class DomMonitor:
@@ -7,5 +8,9 @@ class DomMonitor:
 
     @staticmethod
     def get_client(config):
-        client = Client()
-        return client
+        if config == "request":
+            return RequestClient()
+        elif config == "selenium":
+            return SeleniumClient()
+        else:
+            return RequestClient()
