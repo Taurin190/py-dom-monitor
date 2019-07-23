@@ -1,3 +1,4 @@
 
 class Client:
-    pass
+    def get_html(self):
+        pass
