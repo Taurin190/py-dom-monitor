@@ -1,5 +1,6 @@
 from client.requests_client import RequestClient
 from client.selenium_client import SeleniumClient
+from model.db import Database
 
 
 class DomMonitor:
@@ -14,3 +15,7 @@ class DomMonitor:
             return SeleniumClient()
         else:
             return RequestClient()
+
+    @staticmethod
+    def get_database(config, setting):
+        return Database()
