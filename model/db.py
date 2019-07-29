@@ -1,13 +1,13 @@
 
 class Database:
     def get_exec_count(self):
-        pass
+        raise NotImplementedError()
 
     def get_previous_html(self):
-        pass
+        raise NotImplementedError()
 
     def update_exec_count(self):
-        pass
+        raise NotImplementedError()
 
     def update_previous_html(self):
-        pass
+        raise NotImplementedError()

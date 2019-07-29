@@ -1,6 +1,8 @@
 from client.requests_client import RequestClient
 from client.selenium_client import SeleniumClient
 from model.db import Database
+from model.mongo import Mongo
+from model.file import File
 
 
 class DomMonitor:
@@ -18,4 +20,9 @@ class DomMonitor:
 
     @staticmethod
     def get_database(config, setting):
-        return Database()
+        if config == "mongo":
+            return Mongo(setting)
+        elif config == "file":
+            return File(setting)
+        else:
+            return Mongo(setting)
