@@ -17,8 +17,8 @@
   - [ ] DomMonitorクラスがコンストラクタを作成
   - [x] staticmethodでhtmlを取得するclientを取得する
   - [x] staticmethodでdatabaseクラスを取得する
-  - [ ] staticmethodで通知クラスを取得する
-  - [ ] client,database,通知クラスを引数にドメインクラス取得する
+  - [x] staticmethodで通知クラスを取得する
+  - [x] client,database,通知クラスを引数にドメインクラス取得する
   - [ ] 対象のURLを取得する
 - ドメインクラスを実施する
   - データベースに接続

@@ -18,3 +18,7 @@ class DomMonitorTest(TestCase):
         notification = DomMonitor.get_notification("slack", {"url": ""})
         self.assertTrue(callable(notification.send))
 
+    def test_get_domain(self):
+        domain = DomMonitor.get_domain("", "", "")
+        self.assertTrue(callable(domain.exec))
+
