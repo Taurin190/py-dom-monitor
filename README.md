@@ -13,14 +13,21 @@
 - 10回に1回変わるような特異な変更は通知を行う
 
 ## 要件の分解
-- [ ] Configから対象のURLを取得する
-  - [ ] DomMonitorクラスがコンストラクタを作成
+- [x] Configから対象のURLを取得する
   - [x] staticmethodでhtmlを取得するclientを取得する
   - [x] staticmethodでdatabaseクラスを取得する
   - [x] staticmethodで通知クラスを取得する
   - [x] client,database,通知クラスを引数にドメインクラス取得する
-  - [ ] 対象のURLを取得する
-- ドメインクラスを実施する
+  - [x] 対象のURLを取得する
+- [ ] clientの作成
+  - [ ] requestsでhtmlを取得する
+  - [ ] seleniumでhtmlを取得する
+- [ ] databaseの作成
+  - [ ] 試行回数を取得する
+  - [ ] 前回取得したhtmlを取得する
+  - [ ] 試行回数を更新する
+  - [ ] 前回取得したhtmlを更新する
+- ドメインクラスの作成
   - データベースに接続
   - 今回で何回目のアクセスか取り出す
   - データベースより前回の結果を取り出す
