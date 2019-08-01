@@ -1,3 +1,6 @@
+import os
+import configparser
+
 from client.requests_client import RequestClient
 from client.selenium_client import SeleniumClient
 from model.mongo import Mongo
@@ -7,8 +10,13 @@ from domain.monitor_logic import MonitorLogic
 
 
 class DomMonitor:
-    def exec(self, **args):
-        pass
+    def exec(self, *args):
+        if len(args) < 1:
+            exit(1)
+        arg_config = args[0]
+        current_path = os.getcwd()
+        config = configparser.ConfigParser()
+        config.read(current_path + "/" + arg_config)
 
     @staticmethod
     def get_client(config):
