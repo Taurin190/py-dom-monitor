@@ -1,4 +1,4 @@
 
 class Client:
-    def get_html(self):
+    def get_html(self, url):
         raise NotImplementedError()

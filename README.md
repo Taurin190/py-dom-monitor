@@ -19,9 +19,9 @@
   - [x] staticmethodで通知クラスを取得する
   - [x] client,database,通知クラスを引数にドメインクラス取得する
   - [x] 対象のURLを取得する
-- [ ] clientの作成
-  - [ ] requestsでhtmlを取得する
-  - [ ] seleniumでhtmlを取得する
+- [x] clientの作成
+  - [x] requestsでhtmlを取得する
+  - [x] seleniumでhtmlを取得する
 - [ ] databaseの作成
   - [ ] 試行回数を取得する
   - [ ] 前回取得したhtmlを取得する
