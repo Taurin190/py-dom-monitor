@@ -10,9 +10,11 @@ class MongoTest(TestCase):
             "username": "python",
             "password": "python",
             "database": "monitor",
-            "collection": "monitor"
         }
         self.client = Mongo(config)
 
     def test_fail(self):
         self.fail("fail")
+
+    def tearDown(self):
+        pass

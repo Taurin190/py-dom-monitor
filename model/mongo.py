@@ -8,11 +8,28 @@ class Mongo(Database):
         self.setting = setting
         username = urllib.parse.quote_plus(setting['username'])
         password = urllib.parse.quote_plus(setting['password'])
-        self.client = MongoClient('mongodb://%s:%s@%s:%s/' % (username, password, setting['hostname'], setting['port']))
-        self.col = self.client[setting['database']][setting['collection']]
+        self.client = MongoClient('mongodb://%s:%s@%s:%s/%s' % (
+            username, password,
+            setting['hostname'],
+            setting['port'],
+            setting['database']
+        ))
+        self.db = self.client[setting['database']]
+        if not "exec-count" in self.db.collection_names():
+            self.db.create_collection("exec-count")
+        if not "prev-html" in self.db.collection_names():
+            self.db.create_collection("prev-html")
 
     def __del__(self):
         self.client.close()
+
+    def insert(self, count, prev_html):
+        self.db["exec-count"].insert_many(count)
+        self.db["prev-html"].insert_many(prev_html)
+
+    def drop(self):
+        self.db.drop_collection("exec-count")
+        self.db.drop_collection("prev-html")
 
     def get_exec_count(self):
         pass
