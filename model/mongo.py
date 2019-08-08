@@ -24,8 +24,8 @@ class Mongo(Database):
         self.client.close()
 
     def insert(self, count, prev_html):
-        self.db["exec-count"].insert_many(count)
-        self.db["prev-html"].insert_many(prev_html)
+        self.db["exec-count"].insert_one(count)
+        self.db["prev-html"].insert_one(prev_html)
 
     def drop(self):
         self.db.drop_collection("exec-count")

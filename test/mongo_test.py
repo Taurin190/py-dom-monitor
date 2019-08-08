@@ -12,9 +12,13 @@ class MongoTest(TestCase):
             "database": "monitor",
         }
         self.client = Mongo(config)
+        self.client.insert(
+            {"count": 1},
+            {"html": "<html><body><h1>TEST</h1></body></html>"}
+        )
 
     def test_fail(self):
         self.fail("fail")
 
     def tearDown(self):
-        pass
+        self.client.drop()
