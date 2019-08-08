@@ -17,8 +17,9 @@ class MongoTest(TestCase):
             {"html": "<html><body><h1>TEST</h1></body></html>"}
         )
 
-    def test_fail(self):
-        self.fail("fail")
+    def test_get_exec_count(self):
+        actual = self.client.get_exec_count()
+        self.assertEquals(actual, 1)
 
     def tearDown(self):
         self.client.drop()
