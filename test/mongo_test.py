@@ -19,7 +19,7 @@ class MongoTest(TestCase):
 
     def test_get_exec_count(self):
         actual = self.client.get_exec_count()
-        self.assertEquals(actual, 1)
+        self.assertEqual(actual, 1)
 
     def tearDown(self):
         self.client.drop()
