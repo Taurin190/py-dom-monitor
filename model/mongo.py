@@ -42,7 +42,6 @@ class Mongo(Database):
     def update_exec_count(self):
         prev_count = int(self.db["exec-count"].find_one()["count"])
         self.db["exec-count"].find_one_and_update({"id": 1}, {'$set': {"count": prev_count + 1}})
-        pass
 
-    def update_previous_html(self):
-        pass
+    def update_previous_html(self, new_html):
+        self.db["prev-html"].find_one_and_update({"id": 1}, {'$set': {"html": new_html}})

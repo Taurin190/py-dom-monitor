@@ -30,5 +30,10 @@ class MongoTest(TestCase):
         actual = self.client.get_exec_count()
         self.assertEqual(actual, 2)
 
+    def test_update_previous_html(self):
+        self.client.update_previous_html("<html><body><h1>TEST</h1><h2>TEST2</2></body></html>")
+        actual = self.client.get_previous_html()
+        self.assertEqual(actual, "<html><body><h1>TEST</h1><h2>TEST2</2></body></html>")
+
     def tearDown(self):
         self.client.drop()
