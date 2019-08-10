@@ -36,7 +36,8 @@ class Mongo(Database):
         return count_data["count"]
 
     def get_previous_html(self):
-        pass
+        html_data = self.db["prev-html"].find_one()
+        return html_data["html"]
 
     def update_exec_count(self):
         pass
