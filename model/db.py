@@ -9,5 +9,5 @@ class Database:
     def update_exec_count(self):
         raise NotImplementedError()
 
-    def update_previous_html(self):
+    def update_previous_html(self, html):
         raise NotImplementedError()
