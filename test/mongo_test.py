@@ -38,7 +38,9 @@ class MongoTest(TestCase):
 
     def test_find_diff_from_previous(self):
         actual = self.client.find_diff_from_previous("html > body > h1")
-        self.assertEqual({"id": 1, "diff": "html > body > h1", "count": 1}, actual)
+        self.assertEqual(1, actual[0]["id"])
+        self.assertEqual("html > body > h1", actual[0]["diff"])
+        self.assertEqual(1, actual[0]["count"])
 
     def tearDown(self):
         self.client.drop()
