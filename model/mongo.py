@@ -52,6 +52,6 @@ class Mongo(Database):
 
     def find_diff_from_previous(self, target):
         diff_list = []
-        for result in self.db["prev-diff"].find({"diff": "html > body > h1"}):
+        for result in self.db["prev-diff"].find(target):
             diff_list.append(result)
         return diff_list
