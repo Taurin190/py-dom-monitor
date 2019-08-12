@@ -42,5 +42,9 @@ class MongoTest(TestCase):
         self.assertEqual("html > body > h1", actual[0]["diff"])
         self.assertEqual(1, actual[0]["count"])
 
+    def test_find_diff_from_previous_empty(self):
+        actual = self.client.find_diff_from_previous("invalid key")
+        self.assertEqual(0, len(actual))
+
     def tearDown(self):
         self.client.drop()

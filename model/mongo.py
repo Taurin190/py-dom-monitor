@@ -52,6 +52,12 @@ class Mongo(Database):
 
     def find_diff_from_previous(self, target):
         diff_list = []
-        for result in self.db["prev-diff"].find(target):
+        for result in self.db["prev-diff"].find({"diff": target}):
             diff_list.append(result)
         return diff_list
+
+    def insert_previous_diff(self, diff):
+        pass
+
+    def update_previous_diff(self, target):
+        pass
