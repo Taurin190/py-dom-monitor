@@ -46,5 +46,12 @@ class MongoTest(TestCase):
         actual = self.client.find_diff_from_previous("invalid key")
         self.assertEqual(0, len(actual))
 
+    def test_insert_previous_diff(self):
+        previous = self.client.find_diff_from_previous("key1")
+        self.assertEqual(0, len(previous))
+        self.client.insert_previous_diff("key1")
+        actual = self.client.find_diff_from_previous("key1")
+        self.assertEqual(1, len(actual))
+
     def tearDown(self):
         self.client.drop()

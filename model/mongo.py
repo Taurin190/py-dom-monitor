@@ -57,7 +57,7 @@ class Mongo(Database):
         return diff_list
 
     def insert_previous_diff(self, diff):
-        pass
+        self.db["prev-diff"].insert_one({"id": 2, "diff": diff, "count": 1})
 
     def update_previous_diff(self, target):
         pass
