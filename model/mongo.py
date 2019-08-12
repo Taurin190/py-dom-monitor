@@ -51,4 +51,4 @@ class Mongo(Database):
         self.db["prev-html"].find_one_and_update({"id": 1}, {'$set': {"html": new_html}})
 
     def find_diff_from_previous(self, target):
-        pass
+        return {"id": 1, "diff": "html > body > h1", "count": 1}
