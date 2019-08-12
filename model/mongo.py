@@ -15,21 +15,25 @@ class Mongo(Database):
             setting['database']
         ))
         self.db = self.client[setting['database']]
-        if not "exec-count" in self.db.collection_names():
+        if not "exec-count" in self.db.list_collection_names():
             self.db.create_collection("exec-count")
-        if not "prev-html" in self.db.collection_names():
+        if not "prev-html" in self.db.list_collection_names():
             self.db.create_collection("prev-html")
+        if not "diff-diff" in self.db.list_collection_names():
+            self.db.create_collection("prev-diff")
 
     def __del__(self):
         self.client.close()
 
-    def insert(self, count, prev_html):
+    def insert(self, count, prev_html, prev_diff):
         self.db["exec-count"].insert_one(count)
         self.db["prev-html"].insert_one(prev_html)
+        self.db["prev-diff"].insert_one(prev_diff)
 
     def drop(self):
         self.db.drop_collection("exec-count")
         self.db.drop_collection("prev-html")
+        self.db.drop_collection("prev-diff")
 
     def get_exec_count(self):
         count_data = self.db["exec-count"].find_one()
@@ -45,3 +49,6 @@ class Mongo(Database):
 
     def update_previous_html(self, new_html):
         self.db["prev-html"].find_one_and_update({"id": 1}, {'$set': {"html": new_html}})
+
+    def find_diff_from_previous(self, target):
+        pass

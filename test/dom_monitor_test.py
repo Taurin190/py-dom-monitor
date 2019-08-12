@@ -19,7 +19,7 @@ class DomMonitorTest(TestCase):
         try:
             dom_monitor.exec()
         except SystemExit as e:
-            self.assertEqual(e.code, 1)
+            self.assertEqual(1, e.code)
         else:
             self.fail('SystemExit exception expected')
 

@@ -6,7 +6,7 @@ class AlertLogicTest(TestCase):
     def test_send_slack_message(self):
         alert = AlertLogic(slack_client=SlackMock())
         text = alert.send_slack_message("test")
-        self.assertEqual(text, "test")
+        self.assertEqual("test", text)
 
 
 class SlackMock:
