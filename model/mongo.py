@@ -1,5 +1,6 @@
 from model.db import Database
 from pymongo import MongoClient
+from pymongo import DESCENDING
 import urllib.parse
 
 
@@ -57,7 +58,16 @@ class Mongo(Database):
         return diff_list
 
     def insert_previous_diff(self, diff):
-        self.db["prev-diff"].insert_one({"id": 2, "diff": diff, "count": 1})
+        diff_id = 1 + self._get_previous_diff_max_id()
+        self.db["prev-diff"].insert_one({"id": diff_id, "diff": diff, "count": 1})
+
+    def _get_previous_diff_max_id(self):
+        max_id = 0
+        results = self.db["prev-diff"].find().sort('id', DESCENDING).limit(1)
+        for c in results:
+            if max_id > int(c["id"]):
+                max_id = int(c["id"])
+        return max_id
 
     def update_previous_diff(self, target):
         pass
