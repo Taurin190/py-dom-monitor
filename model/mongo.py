@@ -20,7 +20,7 @@ class Mongo(Database):
             self.db.create_collection("exec-count")
         if not "prev-html" in self.db.list_collection_names():
             self.db.create_collection("prev-html")
-        if not "diff-diff" in self.db.list_collection_names():
+        if not "prev-diff" in self.db.list_collection_names():
             self.db.create_collection("prev-diff")
 
     def __del__(self):

@@ -28,7 +28,14 @@ class DomMonitorTest(TestCase):
         self.assertTrue(callable(client.get_html))
 
     def test_get_database(self):
-        db = DomMonitor.get_database("test", {"hostname": "localhost", "port": "3301", "database": "dom_monitor"})
+        config = {
+            "hostname": "localhost",
+            "port": 27017,
+            "username": "python",
+            "password": "python",
+            "database": "monitor",
+        }
+        db = DomMonitor.get_database("test", config)
         self.assertTrue(callable(db.get_exec_count))
         self.assertTrue(callable(db.get_previous_html))
         self.assertTrue(callable(db.update_exec_count))

@@ -44,14 +44,14 @@ class MongoTest(TestCase):
 
     def test_find_diff_from_previous_empty(self):
         actual = self.client.find_diff_from_previous("invalid key")
-        self.assertEqual(0, len(actual))
+        self.assertIsNone(actual)
 
     def test_insert_previous_diff(self):
         previous = self.client.find_diff_from_previous("key1")
-        self.assertEqual(0, len(previous))
+        self.assertIsNone(previous)
         self.client.insert_previous_diff("key1")
         actual = self.client.find_diff_from_previous("key1")
-        self.assertEqual(1, len(actual))
+        self.assertIsNotNone(actual)
 
     def test_update_previous_diff(self):
         previous = self.client.find_diff_from_previous("html > body > h1")
