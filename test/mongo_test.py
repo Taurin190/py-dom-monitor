@@ -38,9 +38,9 @@ class MongoTest(TestCase):
 
     def test_find_diff_from_previous(self):
         actual = self.client.find_diff_from_previous("html > body > h1")
-        self.assertEqual(1, actual[0]["id"])
-        self.assertEqual("html > body > h1", actual[0]["diff"])
-        self.assertEqual(1, actual[0]["count"])
+        self.assertEqual(1, actual["id"])
+        self.assertEqual("html > body > h1", actual["diff"])
+        self.assertEqual(1, actual["count"])
 
     def test_find_diff_from_previous_empty(self):
         actual = self.client.find_diff_from_previous("invalid key")
@@ -52,6 +52,14 @@ class MongoTest(TestCase):
         self.client.insert_previous_diff("key1")
         actual = self.client.find_diff_from_previous("key1")
         self.assertEqual(1, len(actual))
+
+    def test_update_previous_diff(self):
+        previous = self.client.find_diff_from_previous("html > body > h1")
+        self.assertEqual(1, previous["count"])
+        self.client.update_previous_diff("html > body > h1")
+
+        actual = self.client.find_diff_from_previous("html > body > h1")
+        self.assertEqual(2, actual["count"])
 
     def tearDown(self):
         self.client.drop()

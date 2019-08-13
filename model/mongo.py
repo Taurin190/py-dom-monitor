@@ -52,10 +52,7 @@ class Mongo(Database):
         self.db["prev-html"].find_one_and_update({"id": 1}, {'$set': {"html": new_html}})
 
     def find_diff_from_previous(self, target):
-        diff_list = []
-        for result in self.db["prev-diff"].find({"diff": target}):
-            diff_list.append(result)
-        return diff_list
+        return self.db["prev-diff"].find_one({"diff": target})
 
     def insert_previous_diff(self, diff):
         diff_id = 1 + self._get_previous_diff_max_id()
@@ -70,4 +67,5 @@ class Mongo(Database):
         return max_id
 
     def update_previous_diff(self, target):
-        pass
+        target_diff = self.find_diff_from_previous(target)
+        self.db["prev-diff"].update_one({"diff": target}, {'$set': {"count": int(target_diff["count"]) + 1}})
