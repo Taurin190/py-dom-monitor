@@ -6,7 +6,6 @@ class DomDiff:
         super().__init__()
         self.result_text = ""
         self.different_dom_list = []
-        self.print_type = app_conf["print_type"]
         self.TEXT_MAX = int(app_conf["text_max"])
 
     def compare(self, html1, html2):
@@ -22,36 +21,26 @@ class DomDiff:
                 return True
             else:
                 self.different_dom_list.append(structure[:-6])
-                if self.print_type == "line":
-                    print(structure[:-6])
-                    self._print_until_max("+ " + str(s1))
-                    self._print_until_max("- " + str(s2))
-                    self.result_text += structure[:-6] + "\n"
-                    self.result_text += "+ " + str(s1) + "\n"
-                    self.result_text += "- " + str(s2) + "\n"
-                    print("")
-                else:
-                    self._print_until_max(" " * nest + "+ " + str(s1))
-                    self._print_until_max(" " * nest + "- " + str(s2))
-                    self.result_text += " " * nest + "+ " + str(s1) + "\n"
-                    self.result_text += " " * nest + "- " + str(s2) + "\n"
+                print(structure[:-6])
+                self._print_until_max("+ " + str(s1))
+                self._print_until_max("- " + str(s2))
+                self.result_text += structure[:-6] + "\n"
+                self.result_text += "+ " + str(s1) + "\n"
+                self.result_text += "- " + str(s2) + "\n"
+                print("")
+
                 return False
         # s1, s2のどちらかのみがcontentsを持ってない場合は、異なる
         elif not hasattr(s1, 'contents') or not hasattr(s2, 'contents'):
             self.different_dom_list.append(structure[:-6])
-            if self.print_type == "line":
-                print(structure[:-6])
-                self._print_until_max("+ " + str(s1))
-                self._print_until_max("- " + str(s2))
-                print("")
-                self.result_text += structure[:-6] + "\n"
-                self.result_text += "+ " + str(s1) + "\n"
-                self.result_text += "- " + str(s2) + "\n"
-            else:
-                self._print_until_max(" " * nest + "+ " + str(s1))
-                self._print_until_max(" " * nest + "- " + str(s2))
-                self.result_text += " " * nest + "+ " + str(s1) + "\n"
-                self.result_text += " " * nest + "- " + str(s2) + "\n"
+            print(structure[:-6])
+            self._print_until_max("+ " + str(s1))
+            self._print_until_max("- " + str(s2))
+            print("")
+            self.result_text += structure[:-6] + "\n"
+            self.result_text += "+ " + str(s1) + "\n"
+            self.result_text += "- " + str(s2) + "\n"
+
             return False
 
         if len(s1.contents) == len(s2.contents):
@@ -65,26 +54,20 @@ class DomDiff:
                     if s1.contents[i].get("class"):
                         html_tag += " class:" + str(s1.contents[i].get("class"))
                     tmp_structure += html_tag
-                    if not self.print_type == "line":
-                        print(" " * nest + html_tag)
+                    print(" " * nest + html_tag)
                 if not self._is_same_dom(s1.contents[i], s2.contents[i], tmp_structure + " > ", nest + 1):
                     has_error = False
             return has_error
         else:
             self.different_dom_list.append(structure[:-3])
-            if self.print_type == "line":
-                print(structure[:-3])
-                self._print_until_max("+ " + str(s1.contents))
-                self._print_until_max("- " + str(s2.contents))
-                print("")
-                self.result_text += structure[:-3] + "\n"
-                self.result_text += "+ " + str(s1.contents) + "\n"
-                self.result_text += "- " + str(s2.contents) + "\n"
-            else:
-                self._print_until_max(" " * nest + "+ " + str(s1.contents))
-                self._print_until_max(" " * nest + "- " + str(s2.contents))
-                self.result_text += " " * nest + "+ " + str(s1.contents) + "\n"
-                self.result_text += " " * nest + "- " + str(s2.contents) + "\n"
+            print(structure[:-3])
+            self._print_until_max("+ " + str(s1.contents))
+            self._print_until_max("- " + str(s2.contents))
+            print("")
+            self.result_text += structure[:-3] + "\n"
+            self.result_text += "+ " + str(s1.contents) + "\n"
+            self.result_text += "- " + str(s2.contents) + "\n"
+
             return False
 
     def _print_until_max(self, text):
