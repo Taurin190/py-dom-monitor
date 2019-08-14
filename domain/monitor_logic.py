@@ -1,5 +1,6 @@
 from domain.dom_diff import DomDiff
 
+
 class MonitorLogic:
     def __init__(self, client, database, notification, config):
         self.client = client
