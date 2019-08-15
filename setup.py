@@ -11,6 +11,7 @@ setup(
         "selenium",
         "configparser",
         "slackweb",
+        "pymongo",
     ],
     entry_points={
         "console_scripts": [

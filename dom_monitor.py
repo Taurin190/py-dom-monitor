@@ -41,5 +41,5 @@ class DomMonitor:
         return NotifySlack(setting)
 
     @staticmethod
-    def get_domain(client, database, notification):
-        return MonitorLogic(client, database, notification)
+    def get_domain(client, database, notification, config):
+        return MonitorLogic(client, database, notification, config)
