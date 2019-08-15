@@ -12,21 +12,33 @@ class MonitorLogicTest(TestCase):
         config = {}
         self.monitor = MonitorLogic(client, database, notification, config)
 
-    def test_failure(self):
-        self.fail("fail")
+    def exec(self):
+        pass
 
 
 class ClientMock(Client):
+    def __init__(self):
+        self.html = "<html><body><h1>TEST</h1></body></html>"
+
+    def set_html(self, html):
+        self.html = html
+
     def get_html(self, url):
-        pass
+        return self.html
 
 
 class DBMock(Database):
+    def __init__(self):
+        self.count = 1
+
+    def set_exec_count(self, count):
+        self.count = count
+
     def get_exec_count(self):
-        pass
+        return self.count
 
     def get_previous_html(self):
-        pass
+        return "<html><body><h1>TEST</h1></body></html>"
 
     def update_exec_count(self):
         pass
