@@ -14,3 +14,4 @@ class MonitorLogic:
         current_html = self.client.get_html(self.config["url"])
         diff_tool = DomDiff(self.config)
         results = diff_tool.compare(prev_html, current_html)
+        return results
