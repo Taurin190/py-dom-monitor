@@ -18,3 +18,11 @@ class DomDiffTest(TestCase):
         self.assertEquals([
             "html > body > h1"
         ], result)
+
+    def test_compare_have_diff_and_same(self):
+        html1 = "<html><body><h1>TEST1</h1><h2>TEST</h2></body></html>"
+        html2 = "<html><body><h1>TEST2</h1><h2>TEST</h2></body></html>"
+        result = self.diff_tool.compare(html1, html2)
+        self.assertEquals([
+            "html > body > h1"
+        ], result)
