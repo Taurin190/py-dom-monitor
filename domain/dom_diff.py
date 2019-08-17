@@ -12,7 +12,7 @@ class DomDiff:
         s1 = BeautifulSoup(html1, "html.parser")
         s2 = BeautifulSoup(html2, "html.parser")
         self._is_same_dom(s1, s2, "", 0)
-        return self.result_text
+        return self.different_dom_list
 
     def _is_same_dom(self, s1, s2, structure, nest):
         # s1, s2の両方がcontentsを持ってない場合は、s1, s2を比較して結果を返す
