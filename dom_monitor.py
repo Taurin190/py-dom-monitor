@@ -5,7 +5,7 @@ from client.requests_client import RequestClient
 from client.selenium_client import SeleniumClient
 from model.mongo import Mongo
 from model.file import File
-from notify.notify_slack import NotifySlack
+from domain.alert_logic import AlertLogic
 from domain.monitor_logic import MonitorLogic
 
 
@@ -38,7 +38,7 @@ class DomMonitor:
 
     @staticmethod
     def get_notification(config, setting):
-        return NotifySlack(setting)
+        return AlertLogic(setting)
 
     @staticmethod
     def get_domain(client, database, notification, config):

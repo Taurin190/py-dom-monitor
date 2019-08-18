@@ -65,9 +65,11 @@ class Mongo(Database):
             self.db["prev-diff"].find_one_and_update(
                 {"id": exist_diff["id"]}, {'$set': {"count": int(exist_diff["count"]) + 1}}
             )
+            return self.find_diff_from_previous(diff)
         diff_id = self._get_previous_diff_max_id() + 1
         new_record = {"diff": diff, "id": diff_id, "count": 1}
         self.db["prev-diff"].insert_one(new_record)
+        return self.find_diff_from_previous(diff)
 
     def _get_previous_diff_max_id(self):
         max_id = 0

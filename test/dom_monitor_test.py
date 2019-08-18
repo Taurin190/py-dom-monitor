@@ -46,6 +46,6 @@ class DomMonitorTest(TestCase):
         self.assertTrue(callable(notification.send))
 
     def test_get_domain(self):
-        domain = DomMonitor.get_domain("", "", "", "")
+        domain = DomMonitor.get_domain("", "", "", {"slack": {"url": "test"}})
         self.assertTrue(callable(domain.exec))
 

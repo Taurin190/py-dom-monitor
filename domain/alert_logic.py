@@ -13,5 +13,12 @@ class AlertLogic:
         else:
             self.slack = slack_client.Slack(url=config["slack"]["url"])
 
+    def send(self, message):
+        return self.send_slack_message(message)
+
     def send_slack_message(self, message):
         return self.slack.notify(text=message)
+
+    def send_problem_list(self, problem_list):
+        pass
+

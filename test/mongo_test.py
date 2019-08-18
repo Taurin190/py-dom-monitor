@@ -61,14 +61,12 @@ class MongoTest(TestCase):
         self.assertEqual(2, actual["count"])
 
     def test_insert_or_update_diff_with_new_diff(self):
-        self.client.insert_or_update_diff("key1")
-        actual = self.client.find_diff_from_previous("key1")
+        actual = self.client.insert_or_update_diff("key1")
         self.assertEqual("key1", actual["diff"])
         self.assertEqual(1, actual["count"])
 
     def test_insert_or_update_diff_with_exist_diff(self):
-        self.client.insert_or_update_diff("html > body > h1")
-        actual = self.client.find_diff_from_previous("html > body > h1")
+        actual = self.client.insert_or_update_diff("html > body > h1")
         self.assertEqual("html > body > h1", actual["diff"])
         self.assertEqual(2, actual["count"])
 
