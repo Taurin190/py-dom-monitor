@@ -2,11 +2,14 @@ from bs4 import BeautifulSoup
 
 
 class DomDiff:
-    def __init__(self, app_conf):
+    def __init__(self, app_conf=None):
         super().__init__()
         self.result_text = ""
         self.different_dom_list = []
-        self.TEXT_MAX = int(app_conf["text_max"])
+        if app_conf:
+            self.TEXT_MAX = int(app_conf["text_max"])
+        else:
+            self.TEXT_MAX = 200
 
     def compare(self, html1, html2):
         s1 = BeautifulSoup(html1, "html.parser")

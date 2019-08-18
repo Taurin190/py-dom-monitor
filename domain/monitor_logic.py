@@ -9,9 +9,14 @@ class MonitorLogic:
         self.config = config
 
     def exec(self):
+        results = ""
         exec_count = self.database.get_exec_count()
-        prev_html = self.database.get_previous_html()
         current_html = self.client.get_html(self.config["url"])
-        diff_tool = DomDiff(self.config)
-        results = diff_tool.compare(prev_html, current_html)
+        if exec_count != 1:
+            prev_html = self.database.get_previous_html()
+            diff_tool = DomDiff()
+            diff_results = diff_tool.compare(prev_html, current_html)
+
+        self.database.update_previous_html(current_html)
+        self.database.update_exec_count()
         return results

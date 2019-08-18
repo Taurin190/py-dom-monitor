@@ -13,7 +13,6 @@ class MongoTest(TestCase):
         }
         self.client = Mongo(config)
         self.client.insert(
-            {"count": 1, "id": 1},
             {"html": "<html><body><h1>TEST</h1></body></html>", "id": 1},
             {"id": 1, "diff": "html > body > h1", "count": 1}
         )
@@ -24,7 +23,7 @@ class MongoTest(TestCase):
 
     def test_get_previous_html(self):
         actual = self.client.get_previous_html()
-        self.assertEqual("<html><body><h1>TEST</h1></body></html>", actual)
+        self.assertEqual("<html><body><h1>TEST</h1></body></html>", actual["html"])
 
     def test_update_exec_count(self):
         self.client.update_exec_count()
@@ -59,6 +58,18 @@ class MongoTest(TestCase):
         self.client.update_previous_diff("html > body > h1")
 
         actual = self.client.find_diff_from_previous("html > body > h1")
+        self.assertEqual(2, actual["count"])
+
+    def test_insert_or_update_diff_with_new_diff(self):
+        self.client.insert_or_update_diff("key1")
+        actual = self.client.find_diff_from_previous("key1")
+        self.assertEqual("key1", actual["diff"])
+        self.assertEqual(1, actual["count"])
+
+    def test_insert_or_update_diff_with_exist_diff(self):
+        self.client.insert_or_update_diff("html > body > h1")
+        actual = self.client.find_diff_from_previous("html > body > h1")
+        self.assertEqual("html > body > h1", actual["diff"])
         self.assertEqual(2, actual["count"])
 
     def tearDown(self):
