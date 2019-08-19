@@ -11,12 +11,17 @@ from domain.monitor_logic import MonitorLogic
 
 class DomMonitor:
     def exec(self, *args):
-        if len(args) < 1:
+        if len(args) < 2:
             exit(1)
-        arg_config = args[0]
+        arg_config = args[1]
         current_path = os.getcwd()
         config = configparser.ConfigParser()
         config.read(current_path + "/" + arg_config)
+        client = DomMonitor.get_client(config["app"]["client"])
+        db = DomMonitor.get_database(config["app"]["db_type"], config["database"])
+        notification = DomMonitor.get_notification(config)
+        domain = DomMonitor.get_domain(client, db, notification, config["app"])
+        domain.exec()
 
     @staticmethod
     def get_client(config):
@@ -37,7 +42,7 @@ class DomMonitor:
             return Mongo(setting)
 
     @staticmethod
-    def get_notification(config, setting):
+    def get_notification(config, setting=None):
         return AlertLogic(setting)
 
     @staticmethod

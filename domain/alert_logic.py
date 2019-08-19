@@ -7,7 +7,7 @@ class AlertLogic:
     def __init__(self, slack_client=None):
         current_path = os.getcwd()
         config = configparser.ConfigParser()
-        config.read(current_path + "/../config/slack.conf")
+        config.read(current_path + "/config/slack.conf")
         if not slack_client:
             self.slack = slackweb.Slack(url=config["slack"]["url"])
         else:

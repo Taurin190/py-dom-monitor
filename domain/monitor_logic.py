@@ -7,6 +7,7 @@ class MonitorLogic:
         self.database = database
         self.notification = notification
         self.config = config
+        self.debug_flag = False
         if "threshold" in self.config.keys():
             self.threshold = self.config["threshold"]
         else:
@@ -32,8 +33,11 @@ class MonitorLogic:
         for diff in diff_list:
             diff_data_list.append(self.database.insert_or_update_diff(diff))
         for diff_data in diff_data_list:
-            appearance_rate = 100 * diff_data["count"] / exec_count
-            if appearance_rate < self.threshold:
-                problem_list.append(diff_data)
-
+            if exec_count > 1:
+                appearance_rate = 100 * diff_data["count"] / (exec_count - 1)
+                if self.debug_flag:
+                    print(diff_data)
+                    print(appearance_rate)
+                if appearance_rate < self.threshold:
+                    problem_list.append(diff_data)
         return problem_list

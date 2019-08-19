@@ -6,6 +6,7 @@ class DomDiff:
         super().__init__()
         self.result_text = ""
         self.different_dom_list = []
+        self.debug_flag = False
         if app_conf:
             self.TEXT_MAX = int(app_conf["text_max"])
         else:
@@ -24,25 +25,27 @@ class DomDiff:
                 return True
             else:
                 self.different_dom_list.append(structure[:-6])
-                print(structure[:-6])
-                self._print_until_max("+ " + str(s1))
-                self._print_until_max("- " + str(s2))
-                self.result_text += structure[:-6] + "\n"
-                self.result_text += "+ " + str(s1) + "\n"
-                self.result_text += "- " + str(s2) + "\n"
-                print("")
+                if self.debug_flag:
+                    print(structure[:-6])
+                    self._print_until_max("+ " + str(s1))
+                    self._print_until_max("- " + str(s2))
+                    self.result_text += structure[:-6] + "\n"
+                    self.result_text += "+ " + str(s1) + "\n"
+                    self.result_text += "- " + str(s2) + "\n"
+                    print("")
 
                 return False
         # s1, s2のどちらかのみがcontentsを持ってない場合は、異なる
         elif not hasattr(s1, 'contents') or not hasattr(s2, 'contents'):
             self.different_dom_list.append(structure[:-6])
-            print(structure[:-6])
-            self._print_until_max("+ " + str(s1))
-            self._print_until_max("- " + str(s2))
-            print("")
-            self.result_text += structure[:-6] + "\n"
-            self.result_text += "+ " + str(s1) + "\n"
-            self.result_text += "- " + str(s2) + "\n"
+            if self.debug_flag:
+                print(structure[:-6])
+                self._print_until_max("+ " + str(s1))
+                self._print_until_max("- " + str(s2))
+                print("")
+                self.result_text += structure[:-6] + "\n"
+                self.result_text += "+ " + str(s1) + "\n"
+                self.result_text += "- " + str(s2) + "\n"
 
             return False
 
@@ -57,19 +60,21 @@ class DomDiff:
                     if s1.contents[i].get("class"):
                         html_tag += " class:" + str(s1.contents[i].get("class"))
                     tmp_structure += html_tag
-                    print(" " * nest + html_tag)
+                    if self.debug_flag:
+                        print(" " * nest + html_tag)
                 if not self._is_same_dom(s1.contents[i], s2.contents[i], tmp_structure + " > ", nest + 1):
                     has_error = False
             return has_error
         else:
             self.different_dom_list.append(structure[:-3])
-            print(structure[:-3])
-            self._print_until_max("+ " + str(s1.contents))
-            self._print_until_max("- " + str(s2.contents))
-            print("")
-            self.result_text += structure[:-3] + "\n"
-            self.result_text += "+ " + str(s1.contents) + "\n"
-            self.result_text += "- " + str(s2.contents) + "\n"
+            if self.debug_flag:
+                print(structure[:-3])
+                self._print_until_max("+ " + str(s1.contents))
+                self._print_until_max("- " + str(s2.contents))
+                print("")
+                self.result_text += structure[:-3] + "\n"
+                self.result_text += "+ " + str(s1.contents) + "\n"
+                self.result_text += "- " + str(s2.contents) + "\n"
 
             return False
 
