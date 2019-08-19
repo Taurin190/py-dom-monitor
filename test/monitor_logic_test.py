@@ -6,14 +6,15 @@ from unittest import TestCase
 
 class MonitorLogicTest(TestCase):
     def setUp(self):
-        client = ClientMock
-        database = DBMock
-        notification = NotificationMock
-        config = {}
+        client = ClientMock()
+        database = DBMock()
+        notification = NotificationMock()
+        config = {"url": "http://test.com"}
         self.monitor = MonitorLogic(client, database, notification, config)
 
-    def exec(self):
-        pass
+    def test_exec(self):
+        actual = self.monitor.exec()
+        self.assertEqual("", actual)
 
 
 class ClientMock(Client):
