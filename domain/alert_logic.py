@@ -20,5 +20,11 @@ class AlertLogic:
         return self.slack.notify(text=message)
 
     def send_problem_list(self, problem_list):
-        pass
+        if len(problem_list) == 0:
+            print("No critical diff was found")
+            return
+        message = "[Alert] Following dom has critical diff\n"
+        for problem_dom in problem_list:
+            message += "\t" + str(problem_dom["diff"]) + "\n"
+        self.send(message)
 
