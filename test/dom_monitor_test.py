@@ -23,6 +23,15 @@ class DomMonitorTest(TestCase):
         else:
             self.fail('SystemExit exception expected')
 
+    def test_exec_with_invalid_args(self):
+        dom_monitor = DomMonitor()
+        try:
+            dom_monitor.exec("invalid,txt")
+        except SystemExit as e:
+            self.assertEqual(1, e.code)
+        else:
+            self.fail('SystemExit exception expected')
+
     def test_get_client(self):
         client = DomMonitor.get_client("test")
         self.assertTrue(callable(client.get_html))
