@@ -4,7 +4,7 @@ from client.selenium_client import SeleniumClient
 from unittest import TestCase
 
 
-class DomMonitorTest(TestCase):
+class TestDomMonitor(TestCase):
     def test_exec(self):
         dom_monitor = DomMonitor()
         try:

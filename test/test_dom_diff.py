@@ -2,7 +2,7 @@ from domain.dom_diff import DomDiff
 from unittest import TestCase
 
 
-class DomDiffTest(TestCase):
+class TestDomDiff(TestCase):
     def setUp(self):
         self.diff_tool = DomDiff({"text_max": 20})
 

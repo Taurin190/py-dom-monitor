@@ -4,7 +4,7 @@ from model.db import Database
 from unittest import TestCase
 
 
-class MonitorLogicTest(TestCase):
+class TestMonitorLogic(TestCase):
     def setUp(self):
         self.client = ClientMock()
         database = DBMock()

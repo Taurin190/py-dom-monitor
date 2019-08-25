@@ -2,7 +2,7 @@ from model.mongo import Mongo
 from unittest import TestCase
 
 
-class MongoTest(TestCase):
+class TestMongo(TestCase):
     def setUp(self):
         config = {
             "hostname": "localhost",
