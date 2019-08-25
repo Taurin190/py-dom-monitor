@@ -18,9 +18,9 @@ class MonitorLogicTest(TestCase):
 
     def test_exec_with_diff(self):
         self.monitor.exec()
-        self.client.set_html("<html><body><h1>TEST</h1><h2>TEST2</h2></body></html>")
+        self.client.set_html("<html><body><h1>TEST2</h1></body></html>")
         actual = self.monitor.exec()
-        self.assertEqual("html > body > h2", actual)
+        self.assertEqual(["html > body > h1"], actual)
 
 
 class ClientMock(Client):

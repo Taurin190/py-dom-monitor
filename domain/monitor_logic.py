@@ -21,6 +21,7 @@ class MonitorLogic:
             prev_html = self.database.get_previous_html()
             diff_tool = DomDiff()
             diff_results = diff_tool.compare(prev_html, current_html)
+            results = diff_results
             problem_list = self._handle_diff_list(diff_results, exec_count)
             self.notification.send_problem_list(problem_list)
         self.database.update_previous_html(current_html)
