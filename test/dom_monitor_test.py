@@ -1,4 +1,6 @@
 from dom_monitor import DomMonitor
+from client.requests_client import RequestClient
+from client.selenium_client import SeleniumClient
 from unittest import TestCase
 
 
@@ -35,6 +37,14 @@ class DomMonitorTest(TestCase):
     def test_get_client(self):
         client = DomMonitor.get_client("test")
         self.assertTrue(callable(client.get_html))
+
+    def test_get_client_requests(self):
+        client = DomMonitor.get_client("requests")
+        self.assertTrue(isinstance(client, RequestClient))
+
+    def test_get_client_selenium(self):
+        client = DomMonitor.get_client("selenium")
+        self.assertTrue(isinstance(client, SeleniumClient))
 
     def test_get_database(self):
         config = {
