@@ -6,15 +6,21 @@ from unittest import TestCase
 
 class MonitorLogicTest(TestCase):
     def setUp(self):
-        client = ClientMock()
+        self.client = ClientMock()
         database = DBMock()
         notification = NotificationMock()
         config = {"url": "http://test.com"}
-        self.monitor = MonitorLogic(client, database, notification, config)
+        self.monitor = MonitorLogic(self.client, database, notification, config)
 
     def test_exec(self):
         actual = self.monitor.exec()
         self.assertEqual("", actual)
+
+    def test_exec_with_diff(self):
+        self.monitor.exec()
+        self.client.set_html("<html><body><h1>TEST</h1><h2>TEST2</h2></body></html>")
+        actual = self.monitor.exec()
+        self.assertEqual("html > body > h2", actual)
 
 
 class ClientMock(Client):
@@ -31,6 +37,7 @@ class ClientMock(Client):
 class DBMock(Database):
     def __init__(self):
         self.count = 1
+        self.html = "<html><body><h1>TEST</h1></body></html>"
 
     def set_exec_count(self, count):
         self.count = count
@@ -39,15 +46,21 @@ class DBMock(Database):
         return self.count
 
     def get_previous_html(self):
-        return "<html><body><h1>TEST</h1></body></html>"
+        return self.html
 
     def update_exec_count(self):
-        pass
+        self.count += 1
 
     def update_previous_html(self, html):
-        pass
+        self.html = html
+
+    def insert_or_update_diff(self, diff):
+        return {"diff": diff, "id": 1, "count": 1}
 
 
 class NotificationMock:
     def send_slack_message(self, message):
+        pass
+
+    def send_problem_list(self, problem_list):
         pass
