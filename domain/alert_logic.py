@@ -26,5 +26,5 @@ class AlertLogic:
         message = "[Alert] Following dom has critical diff\n"
         for problem_dom in problem_list:
             message += "\t" + str(problem_dom["diff"]) + "\n"
-        self.send(message)
+        return self.send(message)
 
