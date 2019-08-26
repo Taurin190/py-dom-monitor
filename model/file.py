@@ -14,5 +14,14 @@ class File(Database):
     def update_exec_count(self):
         pass
 
-    def update_previous_html(self):
+    def update_previous_html(self, html):
+        pass
+
+    def find_diff_from_previous(self, target):
+        pass
+
+    def insert_previous_diff(self, diff):
+        pass
+
+    def insert_or_update_diff(self, diff):
         pass
