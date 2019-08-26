@@ -11,3 +11,12 @@ class Database:
 
     def update_previous_html(self, html):
         raise NotImplementedError()
+
+    def find_diff_from_previous(self, target):
+        raise NotImplementedError()
+
+    def insert_previous_diff(self, diff):
+        raise NotImplementedError()
+
+    def insert_or_update_diff(self, diff):
+        raise NotImplementedError()
