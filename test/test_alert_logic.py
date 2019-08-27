@@ -1,5 +1,7 @@
 from domain.alert_logic import AlertLogic
 from unittest import TestCase
+import sys
+from io import StringIO
 
 
 class TestAlertLogic(TestCase):
@@ -20,6 +22,15 @@ class TestAlertLogic(TestCase):
             "\thtml > body > h1\n",
             actual
         )
+
+    def test_send_problem_list_with_empty_list(self):
+        problem_list = []
+        alert = AlertLogic(slack_client=SlackMock())
+        org_stdout, sys.stdout = sys.stdout, StringIO()
+        actual = alert.send_problem_list(problem_list)
+        self.assertIsNone(actual)
+        self.assertEqual("No critical diff was found\n", sys.stdout.getvalue())
+        sys.stdout = org_stdout
 
 
 class SlackMock:
