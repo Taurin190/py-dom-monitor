@@ -8,7 +8,7 @@ class TestDomMonitor(TestCase):
     def test_exec(self):
         dom_monitor = DomMonitor()
         try:
-            dom_monitor.exec("test.conf")
+            dom_monitor.exec("exec", "test.conf")
         except SystemExit:
             self.fail('SystemExit exception doesn\'t expected')
         except SystemError:
