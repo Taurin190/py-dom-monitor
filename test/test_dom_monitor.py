@@ -61,7 +61,7 @@ class TestDomMonitor(TestCase):
         self.assertTrue(callable(db.update_previous_html))
 
     def test_get_notification(self):
-        notification = DomMonitor.get_notification("slack", {"url": ""})
+        notification = DomMonitor.get_notification({"slack": {"url": ""}})
         self.assertTrue(callable(notification.send))
 
     def test_get_domain(self):
