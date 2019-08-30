@@ -6,6 +6,7 @@ class TestMongo(TestCase):
     def setUp(self):
         config = ""
         self.client = File(config)
+        self.client.insert_previous_html("<html><body><h1>TEST</h1></body></html>")
 
     def test_get_exec_count(self):
         actual = self.client.get_exec_count()

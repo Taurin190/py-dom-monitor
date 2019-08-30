@@ -34,10 +34,8 @@ class File(Database):
         with open("previous_html.json", "r") as f:
             if f:
                 s = f.read()
-                print(s)
-                print(json.loads(str(s)))
-                print(dict(f.read()))
-                return dict(f.read())
+                s = s.replace("'", "\"")
+                return json.loads(s)
         return ""
 
     def update_exec_count(self):
