@@ -2,7 +2,7 @@ from model.file import File
 from unittest import TestCase
 
 
-class TestMongo(TestCase):
+class TestFile(TestCase):
     def setUp(self):
         config = ""
         self.client = File(config)

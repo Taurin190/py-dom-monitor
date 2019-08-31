@@ -39,7 +39,9 @@ class File(Database):
         return ""
 
     def update_exec_count(self):
-        pass
+        current_count = int(self.get_exec_count())
+        with open("exec_count.txt", "w") as f:
+            f.write(str(current_count + 1))
 
     def update_previous_html(self, html):
         pass
