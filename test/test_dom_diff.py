@@ -6,12 +6,12 @@ class TestDomDiff(TestCase):
     def setUp(self):
         self.diff_tool = DomDiff({"text_max": 20})
 
-    def test_compare(self):
+    def test_compare_without_diff(self):
         html1 = "<html><body><h1>TEST</h1></body></html>"
         result = self.diff_tool.compare(html1, html1)
         self.assertEquals([], result)
 
-    def test_compare_have_diff(self):
+    def test_compare_with_diff(self):
         html1 = "<html><body><h1>TEST1</h1></body></html>"
         html2 = "<html><body><h1>TEST2</h1></body></html>"
         result = self.diff_tool.compare(html1, html2)
@@ -19,7 +19,7 @@ class TestDomDiff(TestCase):
             "html > body > h1"
         ], result)
 
-    def test_compare_have_diff_and_same(self):
+    def test_compare_with_diff_and_same_component(self):
         html1 = "<html><body><h1>TEST1</h1><h2>TEST</h2></body></html>"
         html2 = "<html><body><h1>TEST2</h1><h2>TEST</h2></body></html>"
         result = self.diff_tool.compare(html1, html2)

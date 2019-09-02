@@ -23,6 +23,26 @@ class TestAlertLogic(TestCase):
             actual
         )
 
+    def test_send_problem_list_with_several_problems(self):
+        problem_list = [
+            {
+                "diff": "html > body > h1",
+                "count": 1
+            },
+            {
+                "diff": "html > body > h2",
+                "count": 2
+            }
+        ]
+        alert = AlertLogic(slack_client=SlackMock())
+        actual = alert.send_problem_list(problem_list)
+        self.assertEqual(
+            "[Alert] Following dom has critical diff\n"
+            "\thtml > body > h1\n"
+            "\thtml > body > h2\n",
+            actual
+        )
+
     def test_send_problem_list_with_empty_list(self):
         problem_list = []
         alert = AlertLogic(slack_client=SlackMock())
