@@ -48,7 +48,14 @@ class File(Database):
         pass
 
     def find_diff_from_previous(self, target):
-        return {"id": 1, "count": 1, "diff": "html > body > h1"}
+        with open("previous_diff.json", "r") as f:
+            s = f.read()
+            s = s.replace("'", "\"")
+            diff_list = json.loads(s)
+        for diff_json in diff_list:
+            if diff_json["diff"] == target:
+                return diff_json
+        return
 
     def insert_previous_diff(self, diff):
         with open("previous_diff.json", "w") as f:
