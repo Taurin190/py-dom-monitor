@@ -25,6 +25,7 @@ class File(Database):
     def drop(self):
         os.remove('exec_count.txt')
         os.remove('previous_html.json')
+        os.remove('previous_diff.json')
 
     def insert_previous_html(self, html):
         with open("previous_html.json", "w") as f:
@@ -47,10 +48,14 @@ class File(Database):
         pass
 
     def find_diff_from_previous(self, target):
-        pass
+        return {"id": 1, "count": 1, "diff": "html > body > h1"}
 
     def insert_previous_diff(self, diff):
-        pass
+        with open("previous_diff.json", "w") as f:
+            f.write(str([{"id": 1, "count": 1, "diff": diff}]))
+
+    def _get_all_previous_diff_json(self):
+        return []
 
     def insert_or_update_diff(self, diff):
         pass

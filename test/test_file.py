@@ -7,6 +7,7 @@ class TestFile(TestCase):
         config = ""
         self.client = File(config)
         self.client.insert_previous_html("<html><body><h1>TEST</h1></body></html>")
+        self.client.insert_previous_diff("html > body > h1")
 
     def test_get_exec_count(self):
         actual = self.client.get_exec_count()
