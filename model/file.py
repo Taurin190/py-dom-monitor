@@ -61,6 +61,19 @@ class File(Database):
             f.write(str([new_diff]))
         return new_diff
 
+    def _update_previous_diff(self, diff):
+        all_diff_json = self._get_all_previous_diff_json()
+        new_all_diff = all_diff_json
+        index = 0
+        for diff_json in all_diff_json:
+            if diff_json["id"] == diff["id"]:
+                new_all_diff[index] = diff
+                break
+            index += 1
+        with open("previous_diff.json", "w") as f:
+            f.write(str(new_all_diff))
+        return diff
+
     def _get_all_previous_diff_json(self):
         with open("previous_diff.json", "r") as f:
             s = f.read()
@@ -82,5 +95,6 @@ class File(Database):
         target_diff = self.find_diff_from_previous(diff)
         if not target_diff:
             return self.insert_previous_diff(diff)
-
-
+        new_diff = target_diff
+        new_diff["count"] = target_diff["count"] + 1
+        return self._update_previous_diff(new_diff)
