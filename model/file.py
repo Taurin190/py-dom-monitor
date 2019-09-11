@@ -34,9 +34,7 @@ class File(Database):
     def get_previous_html(self):
         with open("previous_html.json", "r") as f:
             if f:
-                s = f.read()
-                s = s.replace("'", "\"")
-                return json.loads(s)
+                return self._parse_json_from_str(f.read())
         return ""
 
     def update_exec_count(self):
@@ -45,7 +43,7 @@ class File(Database):
             f.write(str(current_count + 1))
 
     def update_previous_html(self, html):
-        pass
+        self.insert_previous_html(html)
 
     def find_diff_from_previous(self, target):
         diff_list = self._get_all_previous_diff_json()
@@ -63,26 +61,29 @@ class File(Database):
             f.write(str(current_diff))
         return new_diff
 
-    def _update_previous_diff(self, diff):
+    def update_previous_diff(self, diff):
         all_diff_json = self._get_all_previous_diff_json()
         new_all_diff = all_diff_json
         index = 0
         for diff_json in all_diff_json:
-            if diff_json["id"] == diff["id"]:
-                new_all_diff[index] = diff
+            if diff_json["diff"] == diff:
+                new_all_diff[index] = diff_json
+                new_all_diff[index]["count"] = diff_json["count"] + 1
                 break
             index += 1
         with open("previous_diff.json", "w") as f:
             f.write(str(new_all_diff))
         return diff
 
+    def _parse_json_from_str(self, json_str):
+        s = json_str.replace("'", "\"")
+        return json.loads(s)
+
     def _get_all_previous_diff_json(self):
         if not os.path.exists("previous_diff.json"):
             return []
         with open("previous_diff.json", "r") as f:
-            s = f.read()
-            s = s.replace("'", "\"")
-            return json.loads(s)
+            return self._parse_json_from_str(f.read())
 
     def _get_max_id_of_previous_diff(self):
         max_id = 0
@@ -101,4 +102,4 @@ class File(Database):
             return self.insert_previous_diff(diff)
         new_diff = target_diff
         new_diff["count"] = target_diff["count"] + 1
-        return self._update_previous_diff(new_diff)
+        return self.update_previous_diff(new_diff)

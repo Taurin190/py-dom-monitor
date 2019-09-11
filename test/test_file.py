@@ -25,7 +25,7 @@ class TestFile(TestCase):
     def test_update_previous_html(self):
         self.client.update_previous_html("<html><body><h1>TEST</h1><h2>TEST2</2></body></html>")
         actual = self.client.get_previous_html()
-        self.assertEqual("<html><body><h1>TEST</h1><h2>TEST2</2></body></html>", actual)
+        self.assertEqual("<html><body><h1>TEST</h1><h2>TEST2</2></body></html>", actual["html"])
 
     def test_find_diff_from_previous(self):
         actual = self.client.find_diff_from_previous("html > body > h1")
