@@ -17,6 +17,7 @@ class MonitorLogic:
         results = ""
         exec_count = self.database.get_exec_count()
         current_html = self.client.get_html(self.config["url"])
+        print("Execute Count: " + str(exec_count))
         if exec_count != 1:
             prev_html = self.database.get_previous_html()
             diff_tool = DomDiff()
