@@ -12,18 +12,29 @@ from domain.monitor_logic import MonitorLogic
 class DomMonitor:
     def exec(self, *args):
         if len(args) < 2:
-            print("ERROR: this command need args of config file")
+            DomMonitor.print_error("ERROR: this command need args of config file")
             print("usage: dommonitor config_file")
             exit(1)
         arg_config = args[1]
         current_path = os.getcwd()
+        config_path = current_path + "/" + arg_config
+        if not os.path.exists(config_path):
+            DomMonitor.print_error("ERROR: invalid args of config file")
+            print("usage: dommonitor config_file")
+            exit(1)
+
         config = configparser.ConfigParser()
-        config.read(current_path + "/" + arg_config)
+        config.read(config_path)
         client = DomMonitor.get_client(config["app"]["client"])
         db = DomMonitor.get_database(config["app"]["db_type"], config["database"])
         notification = DomMonitor.get_notification(config)
         domain = DomMonitor.get_domain(client, db, notification, config["app"])
         domain.exec()
+
+    @staticmethod
+    def print_error(message):
+        # show error message with red color
+        print('\033[31m' + message + '\033[0m')
 
     @staticmethod
     def get_client(config):
