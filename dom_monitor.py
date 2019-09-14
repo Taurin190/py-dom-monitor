@@ -12,6 +12,8 @@ from domain.monitor_logic import MonitorLogic
 class DomMonitor:
     def exec(self, *args):
         if len(args) < 2:
+            print("ERROR: this command need args of config file")
+            print("usage: dommonitor config_file")
             exit(1)
         arg_config = args[1]
         current_path = os.getcwd()
