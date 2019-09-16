@@ -27,7 +27,10 @@ class DomMonitor:
         config.read(config_path)
         client = DomMonitor.get_client(config["app"]["client"])
         db = DomMonitor.get_database(config["app"]["db_type"], config["database"])
-        notification = DomMonitor.get_notification(config)
+        slack_conf = None
+        if config.has_option("app", "slack_config"):
+            slack_conf = config["app"]["slack_config"]
+        notification = DomMonitor.get_notification(config, slack_conf)
         domain = DomMonitor.get_domain(client, db, notification, config["app"])
         domain.exec()
 
@@ -55,8 +58,8 @@ class DomMonitor:
             return Mongo(setting)
 
     @staticmethod
-    def get_notification(config, setting=None):
-        return AlertLogic(setting)
+    def get_notification(config, config_file_path=None):
+        return AlertLogic(config_file_path=config_file_path)
 
     @staticmethod
     def get_domain(client, database, notification, config):

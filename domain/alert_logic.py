@@ -4,10 +4,14 @@ import configparser
 
 
 class AlertLogic:
-    def __init__(self, slack_client=None):
+    def __init__(self, slack_client=None, config_file_path=None):
         current_path = os.getcwd()
         config = configparser.ConfigParser()
-        config.read(current_path + "/config/slack.conf")
+        if not config_file_path:
+            config_path = current_path + "/config/slack.conf"
+        else:
+            config_path = current_path + config_file_path
+        config.read(config_path)
         if not slack_client:
             self.slack = slackweb.Slack(url=config["slack"]["url"])
         else:
