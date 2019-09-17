@@ -48,13 +48,13 @@ class Mongo(Database):
             return 1
         return count_data["count"]
 
-    def get_previous_html(self):
-        html_data = self.db[Mongo.PREV_HTML_COL].find_one()
-        return html_data["html"]
-
     def update_exec_count(self):
         prev_count = int(self.db[Mongo.EXEC_COUNT_COL].find_one()["count"])
         self.db[Mongo.EXEC_COUNT_COL].find_one_and_update({"id": 1}, {'$set': {"count": prev_count + 1}})
+
+    def get_previous_html(self):
+        html_data = self.db[Mongo.PREV_HTML_COL].find_one()
+        return html_data["html"]
 
     def update_previous_html(self, new_html):
         self.db[Mongo.PREV_HTML_COL].find_one_and_update({"id": 1}, {'$set': {"html": new_html}})
@@ -62,9 +62,13 @@ class Mongo(Database):
     def find_diff_from_previous(self, target):
         return self.db[Mongo.PREV_DIFF_COL].find_one({"diff": target})
 
-    def insert_previous_diff(self, diff):
-        diff_id = 1 + self._get_previous_diff_max_id()
-        self.db[Mongo.PREV_DIFF_COL].insert_one({"id": diff_id, "diff": diff, "count": 1})
+    def _get_previous_diff_max_id(self):
+        max_id = 0
+        results = self.db[Mongo.PREV_DIFF_COL].find().sort('id', DESCENDING).limit(1)
+        for c in results:
+            if max_id < int(c["id"]):
+                max_id = int(c["id"])
+        return max_id
 
     def insert_or_update_diff(self, diff):
         exist_diff = self.find_diff_from_previous(diff)
@@ -78,13 +82,9 @@ class Mongo(Database):
         self.db[Mongo.PREV_DIFF_COL].insert_one(new_record)
         return self.find_diff_from_previous(diff)
 
-    def _get_previous_diff_max_id(self):
-        max_id = 0
-        results = self.db[Mongo.PREV_DIFF_COL].find().sort('id', DESCENDING).limit(1)
-        for c in results:
-            if max_id < int(c["id"]):
-                max_id = int(c["id"])
-        return max_id
+    def insert_previous_diff(self, diff):
+        diff_id = 1 + self._get_previous_diff_max_id()
+        self.db[Mongo.PREV_DIFF_COL].insert_one({"id": diff_id, "diff": diff, "count": 1})
 
     def update_previous_diff(self, target):
         target_diff = self.find_diff_from_previous(target)
