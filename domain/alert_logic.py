@@ -27,9 +27,13 @@ class AlertLogic:
         if len(problem_list) == 0:
             print("No critical diff was found")
             return
-        message = "[Alert] Following dom has critical diff\n"
-        for problem_dom in problem_list:
-            message += "\t" + str(problem_dom["diff"]) + "\n"
+        print(problem_list)
         print("There are critical diffs.")
-        return self.send(message)
+        message = "[Alert] Following dom has critical diff\n"
+        message += "\tTotal Count: " + str(len(problem_list)) + "\n"
+        problem_message = "```\n"
+        for problem_dom in problem_list:
+            problem_message += "\t" + str(problem_dom["diff"]) + "\n\n"
+        problem_message += "```\n"
+        return [self.send(message), self.send(problem_message)]
 

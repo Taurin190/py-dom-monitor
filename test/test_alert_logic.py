@@ -17,9 +17,12 @@ class TestAlertLogic(TestCase):
         }]
         alert = AlertLogic(slack_client=SlackMock())
         actual = alert.send_problem_list(problem_list)
-        self.assertEqual(
+        self.assertEqual([
             "[Alert] Following dom has critical diff\n"
-            "\thtml > body > h1\n",
+            "\tTotal Count: 1\n",
+            "```\n"
+            "\thtml > body > h1\n\n"
+            "```\n"],
             actual
         )
 
@@ -36,10 +39,14 @@ class TestAlertLogic(TestCase):
         ]
         alert = AlertLogic(slack_client=SlackMock())
         actual = alert.send_problem_list(problem_list)
-        self.assertEqual(
+        self.assertEqual([
             "[Alert] Following dom has critical diff\n"
-            "\thtml > body > h1\n"
-            "\thtml > body > h2\n",
+            "\tTotal Count: 2\n",
+            "```\n"
+            "\thtml > body > h1\n\n"
+            "\thtml > body > h2\n\n"
+            "```\n"
+        ],
             actual
         )
 
