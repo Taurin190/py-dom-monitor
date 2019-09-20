@@ -27,7 +27,6 @@ class AlertLogic:
         if len(problem_list) == 0:
             print("No critical diff was found")
             return
-        print(problem_list)
         print("There are critical diffs.")
         message = "[Alert] Following dom has critical diff\n"
         message += "\tTotal Count: " + str(len(problem_list)) + "\n"
