@@ -41,5 +41,6 @@ class MonitorLogic:
                     print(diff_data)
                     print(appearance_rate)
                 if appearance_rate < self.threshold:
+                    diff_data["appearance_rate"] = appearance_rate
                     problem_list.append(diff_data)
         return problem_list

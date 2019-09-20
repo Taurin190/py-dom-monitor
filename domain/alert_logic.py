@@ -30,9 +30,12 @@ class AlertLogic:
         print("There are critical diffs.")
         message = "[Alert] Following dom has critical diff\n"
         message += "\tTotal Count: " + str(len(problem_list)) + "\n"
-        problem_message = "```\n"
+        result_message = [self.send(message)]
         for problem_dom in problem_list:
-            problem_message += "\t" + str(problem_dom["diff"]) + "\n\n"
-        problem_message += "```\n"
-        return [self.send(message), self.send(problem_message)]
+            problem_message = "```\n"
+            problem_message += "Ratio: " + str(problem_dom["appearance_rate"]) + "%\n"
+            problem_message += "\t" + str(problem_dom["diff"]) + "\n"
+            problem_message += "```\n"
+            result_message.append(self.send(problem_message))
+        return result_message
 
