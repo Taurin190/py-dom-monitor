@@ -22,15 +22,26 @@ class TestMonitorLogic(TestCase):
         actual = self.monitor.exec()
         self.assertEqual(["html > body > h1"], actual)
 
+    def test_exec_with_404page(self):
+        self.client.set_exception("404 Not Found Error")
+        actual = self.monitor.exec()
+        self.assertEqual("Error Occur\n\t404 Not Found Error", actual)
+
 
 class ClientMock(Client):
     def __init__(self):
         self.html = "<html><body><h1>TEST</h1></body></html>"
+        self.exception = None
 
     def set_html(self, html):
         self.html = html
 
+    def set_exception(self, exception):
+        self.exception = exception
+
     def get_html(self, url):
+        if self.exception:
+            raise Exception(self.exception)
         return self.html
 
 
