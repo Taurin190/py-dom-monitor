@@ -23,9 +23,9 @@ class TestMonitorLogic(TestCase):
         self.assertEqual(["html > body > h1"], actual)
 
     def test_exec_with_404page(self):
-        self.client.set_exception("404 Not Found Error")
+        self.client.set_exception("Status Code 404")
         actual = self.monitor.exec()
-        self.assertEqual("Error Occur\n\t404 Not Found Error", actual)
+        self.assertEqual("Error Occur\n\tStatus Code 404", actual)
 
 
 class ClientMock(Client):
