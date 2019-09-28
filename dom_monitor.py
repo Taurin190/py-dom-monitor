@@ -59,7 +59,7 @@ class DomMonitor:
 
     @staticmethod
     def get_notification(config, config_file_path=None):
-        return AlertLogic(config_file_path=config_file_path)
+        return AlertLogic(config_file_path=config_file_path, target_url=config["app"]["url"])
 
     @staticmethod
     def get_domain(client, database, notification, config):

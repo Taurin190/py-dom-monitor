@@ -19,7 +19,9 @@ class MonitorLogic:
         try:
             current_html = self.client.get_html(self.config["url"])
         except Exception as e:
-            return "Error Occur\n\t" + e.args[0]
+            error_message = "Error Occur\n" + e.args[0]
+            self.notification.send_with_template(error_message)
+            return error_message
         print("Execute Count: " + str(exec_count))
         if exec_count != 1:
             prev_html = self.database.get_previous_html()

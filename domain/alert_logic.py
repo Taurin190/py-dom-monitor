@@ -4,9 +4,10 @@ import configparser
 
 
 class AlertLogic:
-    def __init__(self, slack_client=None, config_file_path=None):
+    def __init__(self, slack_client=None, config_file_path=None, target_url=None):
         current_path = os.getcwd()
         config = configparser.ConfigParser()
+        self.target_url = target_url
         if not config_file_path:
             config_path = current_path + "/config/slack.conf"
         else:
@@ -23,6 +24,13 @@ class AlertLogic:
     def send_slack_message(self, message):
         return self.slack.notify(text=message)
 
+    def send_with_template(self, message):
+        all_message = ""
+        if self.target_url:
+            all_message += "URL: " + self.target_url + "\n\n"
+        all_message += message
+        self.send(all_message)
+
     def send_problem_list(self, problem_list):
         if len(problem_list) == 0:
             print("No critical diff was found")
@@ -30,7 +38,7 @@ class AlertLogic:
         print("There are critical diffs.")
         message = "[Alert] Following dom has critical diff\n"
         message += "\tTotal Count: " + str(len(problem_list)) + "\n"
-        result_message = [self.send(message)]
+        result_message = [self.send_with_template(message)]
         for problem_dom in problem_list:
             problem_message = "```\n"
             problem_message += "Ratio: " + str(problem_dom["appearance_rate"]) + "%\n"
