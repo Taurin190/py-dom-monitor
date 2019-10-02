@@ -12,6 +12,17 @@
 - 毎回変わる部分は問題なしとする
 - 10回に1回変わるような特異な変更は通知を行う
 
+## install & Usage
+
+    git clone https://github.com/Taurin190/py-dom-monitor.git
+    cd py-dom-monitor
+    pip install -e .
+    
+    dommonitor {config_file_path}
+
+### Configファイル
+
+
 ## 要件の分解
 - [x] Configから対象のURLを取得する
   - [x] staticmethodでhtmlを取得するclientを取得する
