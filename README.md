@@ -1,4 +1,6 @@
 # py-dom-monitor
+[![Build Status](https://travis-ci.org/Taurin190/py-dom-monitor.svg?branch=master)](https://travis-ci.org/Taurin190/py-dom-monitor)
+
 前回作った[py-diffdom](https://github.com/Taurin190/py-diffdom)というツールでは、
 ２つのURLリストを比較するツールを作った。
 
