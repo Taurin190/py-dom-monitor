@@ -1,4 +1,8 @@
 from setuptools import setup
+import sys
+
+sys.path.append('./')
+sys.path.append('./test')
 
 setup(
     name="dommonitor",
