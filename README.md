@@ -20,54 +20,50 @@
     
     dommonitor {config_file_path}
 
-### Configファイル
+### Configファイルの書き方
+以下、"config.app.conf"ファイルサンプルです。
+
+    [app]
+    url = https://yahoo.co.jp
+    client = request
+    db_type = mongo
+    slack_config = /config/slack.conf
+    [database]
+    hostname = localhost
+    port = 27017
+    username = python
+    password = python
+    database = monitor
+    collection = monitor
+
+監視の対象としてDOMを取得するURL
+
+    url = https://yahoo.co.jp
+
+使用するClientで、(request, selenium)が選択可能です。
+
+    client = request
+
+diffや試行回数を保存するストレージ。(mongo, file)が選択可能です。
+
+    db_type = mongo
+
+Slackの設定を保持するディレクトリの相対パスです。※
+
+    slack_config = /config/slack.conf
+
+MongoDBを使用した際の接続情報です。
+
+    [database]
+    hostname = localhost
+    port = 27017
+    username = python
+    password = python
+    database = monitor
+    collection = monitor
 
 
-## 要件の分解
-- [x] Configから対象のURLを取得する
-  - [x] staticmethodでhtmlを取得するclientを取得する
-  - [x] staticmethodでdatabaseクラスを取得する
-  - [x] staticmethodで通知クラスを取得する
-  - [x] client,database,通知クラスを引数にドメインクラス取得する
-  - [x] 対象のURLを取得する
-- [x] clientの作成
-  - [x] requestsでhtmlを取得する
-  - [x] seleniumでhtmlを取得する
-- [x] databaseの作成
-  - [x] 試行回数を取得する
-  - [x] 前回取得したhtmlを取得する
-  - [x] 試行回数を更新する
-  - [x] 前回取得したhtmlを更新する
-- [x] 差分を見つけるツール作成
-  - [x] 比較して差分問題のあるDomの部分を特定する
-  - [x] 差分をリストして返す
-- [x] ドメインクラスの作成
-  - [x] データベースに接続
-  - [x] 今回で何回目のアクセスか取り出す
-  - [x] データベースより前回の結果を取り出す
-  - [x] 対象のURLからHTMLを取得する
-  - [x] 前回のHTMLと今回のHTMLを比較する
-  - [x] 今回出たdiffと同一のdiffがあるか探す
-  - [x] 毎回成功しているのに失敗した場合はアラート結果に出力する
-  - [x] 毎回Diffが出ているのに同じ結果が出る場合はアラート結果に出力する
-- [x] アラートクラスを作成する
-  - [x] アラート結果が空で無い場合通知する
-- [ ] 動作確認
-  - [x] 単体テストの境界値など足りないテスト追加する
-  - [ ] 考えられる結合テストを作成して実施する
-    - [x] Argument無しで実施した場合に、エラーとusageを表示する
-    - [x] Argumentで無効なconfigファイルを指定した時にエラーを出す
-    - [x] 正常に実行していつもと異なるdiffが見つからない
-    - [x] 通知が必要なアラートが発生しているときにSlackにメッセージが送信される
-    - [x] 通知が必要なアラートが発生しているときにSlackにエラーを通知する事を標準出力する
-    - [x] 通知内容をもっといい感じにする
-      - [x] エラーの詳細をコードブロックでメッセージと分けた
-      - [x] エラーが多くなった時に、２メッセージに分かれるので、それぞれコードブロック化した
-      - [x] どれぐらいの発生率のエラーかを記載した
-    - [x] 404やエラーで返ってきた場合には無条件でエラー通知したい
-    - [ ] 要素数が異なる場合などは、親階層でエラーでて分かりにくくなるので解消したい。
-  - [ ] GCPのCloudFunctionで動作させてみる
-- [ ] READMEを整える
-  - [ ] 使い方を詳しく書く
-  - [ ] DEMOをgifイメージで作る
-  - [ ] 要件を分解したTODOリストを消す
+※Slackのconfigファイルは以下のフォーマットで作成してください。
+
+    [slack]
+    url = https://hooks.slack.com/services/XXXXXXX/XXXXXXXXXXXXXX
