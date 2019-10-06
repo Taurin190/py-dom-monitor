@@ -20,6 +20,12 @@
     
     dommonitor {config_file_path}
 
+### Databaseの準備
+dockerでdatabaseを用意することを推奨します。
+
+    docker-compose up -d
+    
+
 ### Configファイルの書き方
 以下、"config.app.conf"ファイルサンプルです。
 
