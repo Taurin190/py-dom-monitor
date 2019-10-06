@@ -4,11 +4,10 @@ import sys
 from dom_monitor import DomMonitor
 
 
-def main(*arg):
+def main():
     mon = DomMonitor()
-    mon.exec(*arg)
+    mon.exec(*sys.argv)
 
 
 if __name__ == '__main__':
-    args = sys.argv
-    main(*args)
+    main()
